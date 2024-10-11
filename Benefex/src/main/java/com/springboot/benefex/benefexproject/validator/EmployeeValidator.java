@@ -2,10 +2,10 @@ package com.springboot.benefex.benefexproject.validator;
 
 import com.springboot.benefex.benefexproject.dto.EmployeeRequest;
 import com.springboot.benefex.benefexproject.repository.EmployeeRepository;
-import exception.EmployeeInputParamNullOrEmpty;
-import exception.EmployeeInvalidGenderException;
-import exception.InvalidEmployeeEmailException;
-import exception.NotUniqueEmployeeEmailException;
+import com.springboot.benefex.benefexproject.exception.EmployeeInputParamNullOrEmpty;
+import com.springboot.benefex.benefexproject.exception.EmployeeInvalidGenderException;
+import com.springboot.benefex.benefexproject.exception.InvalidEmployeeEmailException;
+import com.springboot.benefex.benefexproject.exception.NotUniqueEmployeeEmailException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
