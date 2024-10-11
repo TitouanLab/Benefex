@@ -4,6 +4,7 @@ import com.springboot.benefex.benefexproject.dto.EmployeeRequest;
 import com.springboot.benefex.benefexproject.model.Employee;
 import com.springboot.benefex.benefexproject.repository.EmployeeRepository;
 import exception.EmployeeInputParamNullOrEmpty;
+import exception.EmployeeInvalidGenderException;
 import exception.InvalidEmployeeEmailException;
 import exception.NotUniqueEmployeeEmailException;
 import org.junit.jupiter.api.Test;
@@ -78,6 +79,27 @@ public class EmployeeValidatorTest {
         EmployeeRequest employeeRequest = createValidEmployeeRequest();
         employeeRequest.setDateOfBirth(null);
         assertThrows(EmployeeInputParamNullOrEmpty.class, () -> employeeValidator.validateEmployeeRequest(employeeRequest));
+    }
+
+    @Test
+    public void validateEmployeeRequest_nullGender_throwsNullParamException() {
+        EmployeeRequest employeeRequest = createValidEmployeeRequest();
+        employeeRequest.setGender(null);
+        assertThrows(EmployeeInputParamNullOrEmpty.class, () -> employeeValidator.validateEmployeeRequest(employeeRequest));
+    }
+
+    @Test
+    public void validateEmployeeRequest_emptyGender_throwsNullParamException() {
+        EmployeeRequest employeeRequest = createValidEmployeeRequest();
+        employeeRequest.setGender("");
+        assertThrows(EmployeeInputParamNullOrEmpty.class, () -> employeeValidator.validateEmployeeRequest(employeeRequest));
+    }
+
+    @Test
+    public void validateEmployeeRequest_invalidGender_throwsNullParamException() {
+        EmployeeRequest employeeRequest = createValidEmployeeRequest();
+        employeeRequest.setGender("cheese");
+        assertThrows(EmployeeInvalidGenderException.class, () -> employeeValidator.validateEmployeeRequest(employeeRequest));
     }
 
     @Test

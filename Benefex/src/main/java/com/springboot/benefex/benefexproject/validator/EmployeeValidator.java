@@ -3,16 +3,21 @@ package com.springboot.benefex.benefexproject.validator;
 import com.springboot.benefex.benefexproject.dto.EmployeeRequest;
 import com.springboot.benefex.benefexproject.repository.EmployeeRepository;
 import exception.EmployeeInputParamNullOrEmpty;
+import exception.EmployeeInvalidGenderException;
 import exception.InvalidEmployeeEmailException;
 import exception.NotUniqueEmployeeEmailException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
+import java.util.Arrays;
+import java.util.List;
 import java.util.regex.Pattern;
 
 @Component
 public class EmployeeValidator {
+
+    public static final List<String> VALID_GENDERS = Arrays.asList("male", "female", "other");
 
     @Autowired
     private EmployeeRepository employeeRepository;
@@ -22,6 +27,7 @@ public class EmployeeValidator {
         validateFirstName(employee.getFirstName());
         validateSurname(employee.getSurname());
         validateDateOfBirth(employee.getDateOfBirth());
+        validateGender(employee.getGender());
         validateEmail(employee.getEmail());
     }
 
@@ -46,6 +52,15 @@ public class EmployeeValidator {
     public void validateDateOfBirth(LocalDate dateOfBirth) {
         if (dateOfBirth == null) {
             throw new EmployeeInputParamNullOrEmpty("date of birth");
+        }
+    }
+
+    public void validateGender(String gender) {
+        if (gender == null || gender.isEmpty()) {
+            throw new EmployeeInputParamNullOrEmpty("gender");
+        }
+        if (!VALID_GENDERS.contains(gender.toLowerCase())) {
+            throw new EmployeeInvalidGenderException();
         }
     }
 
