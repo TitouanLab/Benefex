@@ -1,21 +1,22 @@
 package com.springboot.benefex.benefexproject.dto;
 
-import lombok.*;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDate;
-import java.util.UUID;
 
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
-public class EmployeeResponse {
-    private int id;
-    private UUID employeeNo;
+public class EmployeeRequest {
     private String title;
     private String firstName;
     private String surname;
+    @JsonFormat(pattern="dd-MM-yyyy")
     private LocalDate dateOfBirth;
     private String gender;
     private String email;
