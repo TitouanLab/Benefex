@@ -32,42 +32,42 @@ public class EmployeeValidatorTest {
     }
 
     @Test
-    public void validateEmail_nullTitle_throwsNullNameException() {
+    public void validateEmail_nullTitle_throwsNullParamException() {
         EmployeeRequest employeeRequest = createValidEmployeeRequest();
         employeeRequest.setTitle(null);
         assertThrows(EmployeeInputParamNullOrEmpty.class, () -> employeeValidator.validateEmployeeRequest(employeeRequest));
     }
 
     @Test
-    public void validateEmail_emptyTitle_throwsNullNameException() {
+    public void validateEmail_emptyTitle_throwsNullParamException() {
         EmployeeRequest employeeRequest = createValidEmployeeRequest();
         employeeRequest.setTitle("");
         assertThrows(EmployeeInputParamNullOrEmpty.class, () -> employeeValidator.validateEmployeeRequest(employeeRequest));
     }
 
     @Test
-    public void validateEmail_nullFirstName_throwsNullNameException() {
+    public void validateEmail_nullFirstName_throwsNullParamException() {
         EmployeeRequest employeeRequest = createValidEmployeeRequest();
         employeeRequest.setFirstName(null);
         assertThrows(EmployeeInputParamNullOrEmpty.class, () -> employeeValidator.validateEmployeeRequest(employeeRequest));
     }
 
     @Test
-    public void validateEmail_emptyFirstName_throwsNullNameException() {
+    public void validateEmail_emptyFirstName_throwsNullParamException() {
         EmployeeRequest employeeRequest = createValidEmployeeRequest();
         employeeRequest.setFirstName("");
         assertThrows(EmployeeInputParamNullOrEmpty.class, () -> employeeValidator.validateEmployeeRequest(employeeRequest));
     }
 
     @Test
-    public void validateEmail_nullSurname_throwsNullNameException() {
+    public void validateEmail_nullSurname_throwsNullParamException() {
         EmployeeRequest employeeRequest = createValidEmployeeRequest();
         employeeRequest.setSurname(null);
         assertThrows(EmployeeInputParamNullOrEmpty.class, () -> employeeValidator.validateEmployeeRequest(employeeRequest));
     }
 
     @Test
-    public void validateEmail_emptySurname_throwsNullNameException() {
+    public void validateEmail_emptySurname_throwsNullParamException() {
         EmployeeRequest employeeRequest = createValidEmployeeRequest();
         employeeRequest.setSurname("");
         assertThrows(EmployeeInputParamNullOrEmpty.class, () -> employeeValidator.validateEmployeeRequest(employeeRequest));
@@ -81,14 +81,14 @@ public class EmployeeValidatorTest {
     }
 
     @Test
-    public void validateEmail_nullEmail_throwsNullNameException() {
+    public void validateEmail_nullEmail_throwsNullParamException() {
         EmployeeRequest employeeRequest = createValidEmployeeRequest();
         employeeRequest.setEmail(null);
         assertThrows(EmployeeInputParamNullOrEmpty.class, () -> employeeValidator.validateEmployeeRequest(employeeRequest));
     }
 
     @Test
-    public void validateEmail_emptyEmail_throwsNullNameException() {
+    public void validateEmail_emptyEmail_throwsNullParamException() {
         EmployeeRequest employeeRequest = createValidEmployeeRequest();
         employeeRequest.setEmail("");
         assertThrows(EmployeeInputParamNullOrEmpty.class, () -> employeeValidator.validateEmployeeRequest(employeeRequest));
