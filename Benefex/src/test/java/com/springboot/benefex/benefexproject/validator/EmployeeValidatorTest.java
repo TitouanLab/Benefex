@@ -74,6 +74,13 @@ public class EmployeeValidatorTest {
     }
 
     @Test
+    public void validateEmail_nullDateOfBirth_throwsNullParamException() {
+        EmployeeRequest employeeRequest = createValidEmployeeRequest();
+        employeeRequest.setDateOfBirth(null);
+        assertThrows(EmployeeInputParamNullOrEmpty.class, () -> employeeValidator.validateEmployeeRequest(employeeRequest));
+    }
+
+    @Test
     public void validateEmail_nullEmail_throwsNullNameException() {
         EmployeeRequest employeeRequest = createValidEmployeeRequest();
         employeeRequest.setEmail(null);

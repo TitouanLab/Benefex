@@ -8,6 +8,7 @@ import exception.NotUniqueEmployeeEmailException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
 import java.util.regex.Pattern;
 
 @Component
@@ -20,6 +21,7 @@ public class EmployeeValidator {
         validateTitle(employee.getTitle());
         validateFirstName(employee.getFirstName());
         validateSurname(employee.getSurname());
+        validateDateOfBirth(employee.getDateOfBirth());
         validateEmail(employee.getEmail());
     }
 
@@ -29,15 +31,21 @@ public class EmployeeValidator {
         }
     }
 
-    public void validateFirstName(String title) {
-        if (title == null || title.isEmpty()) {
+    public void validateFirstName(String firstName) {
+        if (firstName == null || firstName.isEmpty()) {
             throw new EmployeeInputParamNullOrEmpty("first name");
         }
     }
 
-    public void validateSurname(String title) {
-        if (title == null || title.isEmpty()) {
+    public void validateSurname(String surName) {
+        if (surName == null || surName.isEmpty()) {
             throw new EmployeeInputParamNullOrEmpty("surname");
+        }
+    }
+
+    public void validateDateOfBirth(LocalDate dateOfBirth) {
+        if (dateOfBirth == null) {
+            throw new EmployeeInputParamNullOrEmpty("date of birth");
         }
     }
 
