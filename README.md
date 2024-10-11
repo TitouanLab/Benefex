@@ -78,3 +78,6 @@ Post implementation discussion :
   - If employee deletion was implemented, I would have used a soft delete (adding "active" parameter to DB entity and the delete would have changed the active flag to false)
   - Clearer error messages
   - Adding unit tests to getAllEmployees() test API
+
+I might have some more improvements come to mind later as the thoughts I wrote down were right after implementation.
+Overall I believe my implementation is fairly robust and works as intended given the requirements but it has room for improvements.
