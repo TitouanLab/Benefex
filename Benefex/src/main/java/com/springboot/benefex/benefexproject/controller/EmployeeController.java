@@ -1,5 +1,6 @@
 package com.springboot.benefex.benefexproject.controller;
 
+import com.springboot.benefex.benefexproject.dto.EmployeeResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -7,10 +8,9 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/employees")
 public class EmployeeController {
 
-
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public String createEmployee() {
-        return "Api called";
+    public EmployeeResponse createEmployee() {
+        return new EmployeeResponse();
     }
 }
