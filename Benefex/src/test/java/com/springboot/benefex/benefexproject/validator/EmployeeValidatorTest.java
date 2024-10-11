@@ -60,6 +60,20 @@ public class EmployeeValidatorTest {
     }
 
     @Test
+    public void validateEmail_nullSurname_throwsNullNameException() {
+        EmployeeRequest employeeRequest = createValidEmployeeRequest();
+        employeeRequest.setSurname(null);
+        assertThrows(EmployeeInputParamNullOrEmpty.class, () -> employeeValidator.validateEmployeeRequest(employeeRequest));
+    }
+
+    @Test
+    public void validateEmail_emptySurname_throwsNullNameException() {
+        EmployeeRequest employeeRequest = createValidEmployeeRequest();
+        employeeRequest.setSurname("");
+        assertThrows(EmployeeInputParamNullOrEmpty.class, () -> employeeValidator.validateEmployeeRequest(employeeRequest));
+    }
+
+    @Test
     public void validateEmail_nullEmail_throwsNullNameException() {
         EmployeeRequest employeeRequest = createValidEmployeeRequest();
         employeeRequest.setEmail(null);

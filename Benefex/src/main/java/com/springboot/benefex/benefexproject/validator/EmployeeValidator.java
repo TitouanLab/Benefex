@@ -19,6 +19,7 @@ public class EmployeeValidator {
     public void validateEmployeeRequest(EmployeeRequest employee) {
         validateTitle(employee.getTitle());
         validateFirstName(employee.getFirstName());
+        validateSurname(employee.getSurname());
         validateEmail(employee.getEmail());
     }
 
@@ -31,6 +32,12 @@ public class EmployeeValidator {
     public void validateFirstName(String title) {
         if (title == null || title.isEmpty()) {
             throw new EmployeeInputParamNullOrEmpty("first name");
+        }
+    }
+
+    public void validateSurname(String title) {
+        if (title == null || title.isEmpty()) {
+            throw new EmployeeInputParamNullOrEmpty("surname");
         }
     }
 
