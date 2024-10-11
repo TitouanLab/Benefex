@@ -8,4 +8,6 @@ import java.util.List;
 public interface EmployeeRepository extends CrudRepository<Employee, Long> {
 
     public List<Employee> findAll();
+
+    public Employee findByEmail(String email);
 }
