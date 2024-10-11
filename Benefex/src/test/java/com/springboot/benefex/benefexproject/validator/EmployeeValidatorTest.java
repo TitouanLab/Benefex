@@ -27,59 +27,82 @@ public class EmployeeValidatorTest {
 
     @Test
     public void validateEmail_validRequest_noException() {
-        EmployeeRequest employeeRequest = new EmployeeRequest("Mr", "John", "Smith", LocalDate.of(1900, 1, 1), "Male", "john.smith@gmail.com", "1 Somewhere Road");
+        EmployeeRequest employeeRequest = createValidEmployeeRequest();
         employeeValidator.validateEmployeeRequest(employeeRequest);
     }
 
     @Test
     public void validateEmail_nullTitle_throwsNullNameException() {
-        EmployeeRequest employeeRequest = new EmployeeRequest(null, "John", "Smith", LocalDate.of(1900, 1, 1), "Male", null, "1 Somewhere Road");
+        EmployeeRequest employeeRequest = createValidEmployeeRequest();
+        employeeRequest.setTitle(null);
         assertThrows(EmployeeInputParamNullOrEmpty.class, () -> employeeValidator.validateEmployeeRequest(employeeRequest));
     }
 
     @Test
     public void validateEmail_emptyTitle_throwsNullNameException() {
-        EmployeeRequest employeeRequest = new EmployeeRequest("", "John", "Smith", LocalDate.of(1900, 1, 1), "Male", "", "1 Somewhere Road");
+        EmployeeRequest employeeRequest = createValidEmployeeRequest();
+        employeeRequest.setTitle("");
+        assertThrows(EmployeeInputParamNullOrEmpty.class, () -> employeeValidator.validateEmployeeRequest(employeeRequest));
+    }
+
+    @Test
+    public void validateEmail_nullFirstName_throwsNullNameException() {
+        EmployeeRequest employeeRequest = createValidEmployeeRequest();
+        employeeRequest.setFirstName(null);
+        assertThrows(EmployeeInputParamNullOrEmpty.class, () -> employeeValidator.validateEmployeeRequest(employeeRequest));
+    }
+
+    @Test
+    public void validateEmail_emptyFirstName_throwsNullNameException() {
+        EmployeeRequest employeeRequest = createValidEmployeeRequest();
+        employeeRequest.setFirstName("");
         assertThrows(EmployeeInputParamNullOrEmpty.class, () -> employeeValidator.validateEmployeeRequest(employeeRequest));
     }
 
     @Test
     public void validateEmail_nullEmail_throwsNullNameException() {
-        EmployeeRequest employeeRequest = new EmployeeRequest("Mr", "John", "Smith", LocalDate.of(1900, 1, 1), "Male", null, "1 Somewhere Road");
+        EmployeeRequest employeeRequest = createValidEmployeeRequest();
+        employeeRequest.setEmail(null);
         assertThrows(EmployeeInputParamNullOrEmpty.class, () -> employeeValidator.validateEmployeeRequest(employeeRequest));
     }
 
     @Test
     public void validateEmail_emptyEmail_throwsNullNameException() {
-        EmployeeRequest employeeRequest = new EmployeeRequest("Mr", "John", "Smith", LocalDate.of(1900, 1, 1), "Male", "", "1 Somewhere Road");
+        EmployeeRequest employeeRequest = createValidEmployeeRequest();
+        employeeRequest.setEmail("");
         assertThrows(EmployeeInputParamNullOrEmpty.class, () -> employeeValidator.validateEmployeeRequest(employeeRequest));
     }
 
     @Test
     public void validateEmail_noAtSign_throwsInvalidEmailException() {
-        EmployeeRequest employeeRequest = new EmployeeRequest("Mr", "John", "Smith", LocalDate.of(1900, 1, 1), "Male", "john.smith.com", "1 Somewhere Road");
+        EmployeeRequest employeeRequest = createValidEmployeeRequest();
+        employeeRequest.setEmail("john.smith.com");
         assertThrows(InvalidEmployeeEmailException.class, () -> employeeValidator.validateEmployeeRequest(employeeRequest));
     }
 
     @Test
     public void validateEmail_noDomainExtension_throwsInvalidEmailException() {
-        EmployeeRequest employeeRequest = new EmployeeRequest("Mr", "John", "Smith", LocalDate.of(1900, 1, 1), "Male", "john.smith@gmail", "1 Somewhere Road");
+        EmployeeRequest employeeRequest = createValidEmployeeRequest();
+        employeeRequest.setEmail("john.smith@gmail");
         assertThrows(InvalidEmployeeEmailException.class, () -> employeeValidator.validateEmployeeRequest(employeeRequest));
     }
 
     @Test
     public void validateEmail_noEmailSuffix_throwsInvalidEmailException() {
-        EmployeeRequest employeeRequest = new EmployeeRequest("Mr", "John", "Smith", LocalDate.of(1900, 1, 1), "Male", "@gmail.com", "1 Somewhere Road");
+        EmployeeRequest employeeRequest = createValidEmployeeRequest();
+        employeeRequest.setEmail("@gmail.com");
         assertThrows(InvalidEmployeeEmailException.class, () -> employeeValidator.validateEmployeeRequest(employeeRequest));
     }
 
     @Test
     public void validateEmail_notUniqueEmail_throwsNotUniqueEmailException() {
-        String email = "john.smith@gmail.com";
-
-        when(employeeRepository.findByEmail(email)).thenReturn(new Employee());
-
-        EmployeeRequest employeeRequest = new EmployeeRequest("Mr", "John", "Smith", LocalDate.of(1900, 1, 1), "Male", email, "1 Somewhere Road");
+        EmployeeRequest employeeRequest = createValidEmployeeRequest();
+        when(employeeRepository.findByEmail(employeeRequest.getEmail())).thenReturn(new Employee());
         assertThrows(NotUniqueEmployeeEmailException.class, () -> employeeValidator.validateEmployeeRequest(employeeRequest));
+    }
+
+    private EmployeeRequest createValidEmployeeRequest() {
+        return new EmployeeRequest("Mr", "John", "Smith", LocalDate.of(1900, 1, 1), "Male", "john.smith@gmail.com", "1 Somewhere Road");
+
     }
 }

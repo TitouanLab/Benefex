@@ -18,12 +18,19 @@ public class EmployeeValidator {
 
     public void validateEmployeeRequest(EmployeeRequest employee) {
         validateTitle(employee.getTitle());
+        validateFirstName(employee.getFirstName());
         validateEmail(employee.getEmail());
     }
 
     public void validateTitle(String title) {
         if (title == null || title.isEmpty()) {
             throw new EmployeeInputParamNullOrEmpty("title");
+        }
+    }
+
+    public void validateFirstName(String title) {
+        if (title == null || title.isEmpty()) {
+            throw new EmployeeInputParamNullOrEmpty("first name");
         }
     }
 
