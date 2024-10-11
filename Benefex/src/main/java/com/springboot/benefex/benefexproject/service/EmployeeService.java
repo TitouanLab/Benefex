@@ -4,6 +4,7 @@ import com.springboot.benefex.benefexproject.dto.EmployeeRequest;
 import com.springboot.benefex.benefexproject.dto.EmployeeResponse;
 import com.springboot.benefex.benefexproject.model.Employee;
 import com.springboot.benefex.benefexproject.repository.EmployeeRepository;
+import com.springboot.benefex.benefexproject.util.EmployeeDTOConverter;
 import com.springboot.benefex.benefexproject.validator.EmployeeValidator;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,45 +24,17 @@ public class EmployeeService {
     @Autowired
     private EmployeeValidator employeeValidator;
 
+    @Autowired
+    private EmployeeDTOConverter employeeDTOConverter;
+
     public List<EmployeeResponse> getAllEmployees() {
-        return convertEmployeesToDTOs(employeeRepository.findAll());
+        return employeeDTOConverter.convertEmployeesToDTOs(employeeRepository.findAll());
     }
 
     public EmployeeResponse createEmployee(EmployeeRequest employeeRequest) {
         employeeValidator.validateEmployeeRequest(employeeRequest);
-        Employee employee = convertDTOToEmployee(employeeRequest);
+        Employee employee = employeeDTOConverter.convertDTOToEmployee(employeeRequest);
         employee = employeeRepository.save(employee);
-        return convertEmployeeToDTO(employee);
-    }
-
-    private Employee convertDTOToEmployee(EmployeeRequest employeeRequest) {
-        return Employee.builder()
-                .employeeNo(UUID.randomUUID())
-                .title(employeeRequest.getTitle())
-                .firstName(employeeRequest.getFirstName())
-                .surname(employeeRequest.getSurname())
-                .dateOfBirth(employeeRequest.getDateOfBirth())
-                .gender(employeeRequest.getGender())
-                .email(employeeRequest.getEmail())
-                .address(employeeRequest.getAddress())
-                .build();
-    }
-
-    private List<EmployeeResponse> convertEmployeesToDTOs(List<Employee> employees) {
-        return employees.stream().map(this::convertEmployeeToDTO).collect(Collectors.toList());
-    }
-
-    private EmployeeResponse convertEmployeeToDTO(Employee employee) {
-        return EmployeeResponse.builder()
-                .id(employee.getId())
-                .employeeNo(employee.getEmployeeNo())
-                .title(employee.getTitle())
-                .firstName(employee.getFirstName())
-                .surname(employee.getSurname())
-                .dateOfBirth(employee.getDateOfBirth())
-                .gender(employee.getGender())
-                .email(employee.getEmail())
-                .address(employee.getAddress())
-                .build();
+        return employeeDTOConverter.convertEmployeeToDTO(employee);
     }
 }
