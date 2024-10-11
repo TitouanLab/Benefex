@@ -22,17 +22,14 @@ public class EmployeeService {
     @Autowired
     private EmployeeValidator employeeValidator;
 
-    @Autowired
-    private EmployeeDTOConverter employeeDTOConverter;
-
     public List<EmployeeResponse> getAllEmployees() {
-        return employeeDTOConverter.convertEmployeesToDTOs(employeeRepository.findAll());
+        return EmployeeDTOConverter.convertEmployeesToDTOs(employeeRepository.findAll());
     }
 
     public EmployeeResponse createEmployee(EmployeeRequest employeeRequest) {
         employeeValidator.validateEmployeeRequest(employeeRequest);
-        Employee employee = employeeDTOConverter.convertDTOToEmployee(employeeRequest);
+        Employee employee = EmployeeDTOConverter.convertDTOToEmployee(employeeRequest);
         employee = employeeRepository.save(employee);
-        return employeeDTOConverter.convertEmployeeToDTO(employee);
+        return EmployeeDTOConverter.convertEmployeeToDTO(employee);
     }
 }

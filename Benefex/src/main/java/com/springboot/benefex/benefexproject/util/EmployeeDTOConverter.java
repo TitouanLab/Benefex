@@ -3,20 +3,18 @@ package com.springboot.benefex.benefexproject.util;
 import com.springboot.benefex.benefexproject.dto.EmployeeRequest;
 import com.springboot.benefex.benefexproject.dto.EmployeeResponse;
 import com.springboot.benefex.benefexproject.model.Employee;
-import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-@Component
 public class EmployeeDTOConverter {
 
-    public List<EmployeeResponse> convertEmployeesToDTOs(List<Employee> employees) {
-        return employees.stream().map(this::convertEmployeeToDTO).collect(Collectors.toList());
+    public static List<EmployeeResponse> convertEmployeesToDTOs(List<Employee> employees) {
+        return employees.stream().map(EmployeeDTOConverter::convertEmployeeToDTO).collect(Collectors.toList());
     }
 
-    public EmployeeResponse convertEmployeeToDTO(Employee employee) {
+    public static EmployeeResponse convertEmployeeToDTO(Employee employee) {
         return EmployeeResponse.builder()
                 .id(employee.getId())
                 .employeeNo(employee.getEmployeeNo())
@@ -30,7 +28,7 @@ public class EmployeeDTOConverter {
                 .build();
     }
 
-    public Employee convertDTOToEmployee(EmployeeRequest employeeRequest) {
+    public static Employee convertDTOToEmployee(EmployeeRequest employeeRequest) {
         return Employee.builder()
                 .employeeNo(UUID.randomUUID())
                 .title(employeeRequest.getTitle())
