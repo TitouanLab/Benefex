@@ -8,7 +8,9 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -16,6 +18,10 @@ public class EmployeeService {
 
     @Autowired
     private EmployeeRepository employeeRepository;
+
+    public List<EmployeeResponse> getAllEmployees() {
+        return convertEmployeesToDTOs(employeeRepository.findAll());
+    }
 
     public EmployeeResponse createEmployee(EmployeeRequest employeeRequest) {
         Employee employee = convertDTOToEmployee(employeeRequest);
@@ -34,6 +40,10 @@ public class EmployeeService {
                 .email(employeeRequest.getEmail())
                 .address(employeeRequest.getAddress())
                 .build();
+    }
+
+    private List<EmployeeResponse> convertEmployeesToDTOs(List<Employee> employees) {
+        return employees.stream().map(this::convertEmployeeToDTO).collect(Collectors.toList());
     }
 
     private EmployeeResponse convertEmployeeToDTO(Employee employee) {
