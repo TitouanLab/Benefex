@@ -29,6 +29,7 @@ public class EmployeeValidator {
         validateDateOfBirth(employee.getDateOfBirth());
         validateGender(employee.getGender());
         validateEmail(employee.getEmail());
+        validateAddress(employee.getAddress());
     }
 
     public void validateTitle(String title) {
@@ -75,6 +76,12 @@ public class EmployeeValidator {
         }
         if (employeeRepository.findByEmail(email) != null) {
             throw new NotUniqueEmployeeEmailException();
+        }
+    }
+
+    private void validateAddress(String address) {
+        if (address == null || address.isEmpty()) {
+            throw new EmployeeInputParamNullOrEmpty("address");
         }
     }
 }

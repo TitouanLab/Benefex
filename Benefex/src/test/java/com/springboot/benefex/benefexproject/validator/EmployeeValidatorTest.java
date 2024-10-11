@@ -144,8 +144,21 @@ public class EmployeeValidatorTest {
         assertThrows(NotUniqueEmployeeEmailException.class, () -> employeeValidator.validateEmployeeRequest(employeeRequest));
     }
 
+    @Test
+    public void validateEmployeeRequest_nullAddress_throwsNullParamException() {
+        EmployeeRequest employeeRequest = createValidEmployeeRequest();
+        employeeRequest.setAddress(null);
+        assertThrows(EmployeeInputParamNullOrEmpty.class, () -> employeeValidator.validateEmployeeRequest(employeeRequest));
+    }
+
+    @Test
+    public void validateEmployeeRequest_emptyAddress_throwsNullParamException() {
+        EmployeeRequest employeeRequest = createValidEmployeeRequest();
+        employeeRequest.setAddress("");
+        assertThrows(EmployeeInputParamNullOrEmpty.class, () -> employeeValidator.validateEmployeeRequest(employeeRequest));
+    }
+
     private EmployeeRequest createValidEmployeeRequest() {
         return new EmployeeRequest("Mr", "John", "Smith", LocalDate.of(1900, 1, 1), "Male", "john.smith@gmail.com", "1 Somewhere Road");
-
     }
 }
